@@ -21,6 +21,11 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm run build
+
+    - name: Remove node_modules
+      run: |
+        rm -rf node_modules
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
