@@ -72,7 +72,53 @@ Specify if Klaro should be included in development builds.
 Example value: true
 
 ## Examples of usage
-Will be populated as the development continues...
+
+### Default URL & embedded configuration example
+Usage with the default URL for Klaro and an embedded configuration:
+```javascript
+module.exports = {
+    plugins: [
+        ...
+        {
+            resolve: "gatsby-plugin-klaro",
+            options: {
+                includeInDevelopment: true,
+                klaroVersion: "v0.7.11",
+                config: {
+                    privacyPolicy: "/privacy",
+                    apps: [{
+                        name: "google-analytics",
+                        default: true,
+                        title: "Google Analytics",
+                        purposes: ["Statistiken"],
+                        cookies: [/^ga/i],
+                    },],
+                }
+            }
+        },
+        ...
+    ],
+};
+```
+
+### Custom URL and external configuration example
+Usage with a custom URL for Klaro and an external configuration located at static/config.js:
+```javascript
+module.exports = {
+    plugins: [
+        ...
+        {
+            resolve: "gatsby-plugin-klaro",
+            options: {
+                includeInDevelopment: true,
+                klaroVersion: "v0.7.11",
+                configUrl: "config.js"
+            }
+        },
+        ...
+    ],
+};
+```
 
 ## How to develop locally
 
@@ -83,31 +129,31 @@ To develop locally you need the following tools:
 
 ### Setup
 To set the project up, simply let npm install your dependencies as always:
-```
+```bash
 npm install
 ```
 
 ### Building the project
 To build the project use the build script provided by npm:
-```
+```bash
 npm run build
 ```
 Note that building will also run eslint and jest tests.
 
 If you want to collect coverage while building, use the following script instead:
-```
+```bash
 npm run buildCoverage
 ```
 
 ### Compiling the project
 To compile the project run the following npm script:
-```
+```bash
 npm run compile
 ```
 
 ### Clean compile output
 To clean the compiled output (which lays in the root directory), run:
-```
+```bash
 npm run clean
 ```
 
@@ -117,19 +163,19 @@ You can run the tools using npm.
 
 ### Run linting and testing suites
 Use the following npm command to run eslint and jest:
-```
+```bash
 npm run test
 ```
 
 ### Run only eslint
 Use the following npm command to run eslint:
-```
+```bash
 npm run lint
 ```
 
 ### Run only jest
 Use the following npm command to run jest:
-```
+```bash
 npm run test
 ```
 
