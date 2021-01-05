@@ -1,6 +1,25 @@
-/**
- * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/ssr-apis/
- */
-// You can delete this file if you're not using it
+import React from "react";
+
+exports.onRenderBody = ({ setHeadComponents }, pluginOptions) => {
+    if (
+        process.env.NODE_ENV === "production" ||
+        pluginOptions.includeInDevelopment
+    ) {
+        return setHeadComponents([
+            <script
+                defer
+                key="klaro-config"
+                type="text/javascript"
+                src="config.js"
+            ></script>,
+            <script
+                defer
+                key="klaro"
+                type="text/javascript"
+                src="https://cdn.kiprotect.com/klaro/v0.7.11/klaro.js"
+            ></script>,
+        ]);
+    }
+
+    return null;
+};
