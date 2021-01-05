@@ -1,113 +1,183 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Starter for a Gatsby Plugin
-</h1>
+# gatsby-plugin-klaro
 
-A minimal boilerplate for the essential files Gatsby looks for in a plugin.
+## Description
+This plugin allows to add [KIProtect Klaro](https://github.com/kiprotect/klaro) to your Gatsby site.
+The plugin adds the necessary configuration and script in the head of your page.
 
-## 🚀 Quick start
+## How to install
 
-To get started creating a new plugin, you can follow these steps:
+### Install the plugin through npm
+The installation of `gatsby-plugin-klaro` is done the same way as you would install other plugins.
+Refer to [Using a plugin in your site](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/) for a detailed guide.
+Note that you need `npm` to use this plugin. You might also use another prefered package manager that you currently use.
 
-1. Initialize a new plugin from the starter with `gatsby new`
-
-```shell
-gatsby new my-plugin https://github.com/gatsbyjs/gatsby-starter-plugin
+Run the following commandto install `gatsby-plugin-klaro`:
+```
+npm install gatsby-plugin-klaro
 ```
 
-If you already have a Gatsby site, you can use it. Otherwise, you can [create a new Gatsby site](https://www.gatsbyjs.com/tutorial/part-zero/#create-a-gatsby-site) to test your plugin.
-
-Your directory structure will look similar to this:
-
-```text
-/my-gatsby-site
-├── gatsby-config.js
-└── /src
-    └── /pages
-        └── /index.js
-/my-plugin
-├── gatsby-browser.js
-├── gatsby-node.js
-├── gatsby-ssr.js
-├── index.js
-├── package.json
-└── README.md
-```
-
-With `my-gatsby-site` being your Gatsby site, and `my-plugin` being your plugin. You could also include the plugin in your [site's `plugins` folder](https://www.gatsbyjs.com/docs/loading-plugins-from-your-local-plugins-folder/).
-
-2. Include the plugin in a Gatsby site
-
-Inside of the `gatsby-config.js` file of your site (in this case, `my-gatsby-site`), include the plugin in the `plugins` array:
+### Load the plugin
+Put the plugin into your `gatsby-config.js`. It is **important** that you insert the plugin at the top of
+your loaded plugins. The order of the plugins in your `gatsby-config.js` specifies their load order.
+As Klaro is a CMP it is recommended to put it at the top of your `<head></head>`.
 
 ```javascript
 module.exports = {
-  plugins: [
-    // other gatsby plugins
-    // ...
-    require.resolve(`../my-plugin`),
-  ],
-}
+    plugins: [
+        ...
+        {
+            `gatsby-plugin-klaro`,
+            options: {
+                ...
+            }
+        },
+        ...
+    ]
+};
 ```
 
-The line `require.resolve('../my-plugin')` is what accesses the plugin based on its filepath on your computer, and adds it as a plugin when Gatsby runs.
+## Available options
 
-_You can use this method to test and develop your plugin before you publish it to a package registry like npm. Once published, you would instead install it and [add the plugin name to the array](https://www.gatsbyjs.com/docs/using-a-plugin-in-your-site/). You can read about other ways to connect your plugin to your site including using `npm link` or `yarn workspaces` in the [doc on creating local plugins](https://www.gatsbyjs.com/docs/creating-a-local-plugin/#developing-a-local-plugin-that-is-outside-your-project)._
+#### `klaroVersion` (optional, default: `v0.7.11`)
+The version of Klaro that should be used. Use the same version strings as you find
+on [Releases](https://github.com/kiprotect/klaro/releases) on the Klaro repository.
+Example value: "v0.7.11"
 
-3. Verify the plugin was added correctly
+#### `klaroUrl` (optional, default: offical klaro url with `klaroVersion` as version)
+The Klaro url that should be used to load the Klaro script.
+You can use %version% as a placeholder for `klaroVersion`.
+The following example shows how to use a local Klaro version that lays in your static content folder.
+Example value: "klaro.js"
 
-The plugin added by the starter implements a single Gatsby API in the `gatsby-node` that logs a message to the console. When you run `gatsby develop` or `gatsby build` in the site that implements your plugin, you should see this message.
+#### `config` (required if `configUrl` is not set)
+The configuration that you want to apply to Klaro.
+This value is a JSON object that contains the necessary configuration of Klaro.
+You can either use the `config` **or** `configUrl` option to configure Klaro.
+Note that `config` has a higher priority than `configUrl` and will override `configUrl`
+if both options are set. Also no configuration merging will be applied.
+Example value: {...}
 
-You can verify your plugin was added to your site correctly by running `gatsby develop` for the site.
+#### `configUrl` (required if `config` is not set)
+The URL to a JavaScript file that should be loaded as configuration source.
+Please use the default variable when in your JavaScript configuration file
+which is `window.klaroConfig` for this to work properly.
+You can either use the `config` **or** `configUrl` option to configure Klaro.
+Note that `config` has a higher priority than `configUrl` and will override `configUrl`
+if both options are set. Also no configuration merging will be applied.
+Example value: "config.js"
 
-You should now see a message logged to the console in the preinit phase of the Gatsby build process:
 
-```shell
-$ gatsby develop
-success open and validate gatsby-configs - 0.033s
-success load plugins - 0.074s
-Loaded gatsby-starter-plugin
-success onPreInit - 0.016s
-...
+#### `includeInDevelopment` (optional, default: false)
+Specify if Klaro should be included in development builds.
+Example value: true
+
+## Examples of usage
+
+#### Default URL & embedded configuration example
+Usage with the default URL for Klaro and an embedded configuration:
+```javascript
+module.exports = {
+    plugins: [
+        ...
+        {
+            resolve: "gatsby-plugin-klaro",
+            options: {
+                includeInDevelopment: true,
+                klaroVersion: "v0.7.11",
+                config: {
+                    privacyPolicy: "/privacy",
+                    apps: [{
+                        name: "google-analytics",
+                        default: true,
+                        title: "Google Analytics",
+                        purposes: ["statistics"],
+                        cookies: [/^ga/i],
+                    },],
+                }
+            }
+        },
+        ...
+    ],
+};
 ```
 
-4. Rename the plugin in the `package.json`
-
-When you clone the site, the information in the `package.json` will need to be updated. Name your plugin based off of [Gatsby's conventions for naming plugins](https://www.gatsbyjs.com/docs/naming-a-plugin/).
-
-## 🧐 What's inside?
-
-This starter generates the [files Gatsby looks for in plugins](https://www.gatsbyjs.com/docs/files-gatsby-looks-for-in-a-plugin/).
-
-```text
-/my-plugin
-├── .gitignore
-├── gatsby-browser.js
-├── gatsby-node.js
-├── gatsby-ssr.js
-├── index.js
-├── LICENSE
-├── package.json
-└── README.md
+#### Custom URL and external configuration example
+Usage with a custom URL for Klaro and an external configuration located at static/config.js:
+```javascript
+module.exports = {
+    plugins: [
+        ...
+        {
+            resolve: "gatsby-plugin-klaro",
+            options: {
+                includeInDevelopment: true,
+                klaroVersion: "v0.7.11",
+                configUrl: "config.js"
+            }
+        },
+        ...
+    ],
+};
 ```
 
-- **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-- **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.com/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-- **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.com/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-- **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.com/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-- **`index.js`**: A file that will be loaded by default when the plugin is [required by another application](https://docs.npmjs.com/creating-node-js-modules#create-the-file-that-will-be-loaded-when-your-module-is-required-by-another-application0). You can adjust what file is used by updating the `main` field of the `package.json`.
-- **`LICENSE`**: This plugin starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
-- **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the plugin's name, author, etc). This manifest is how npm knows which packages to install for your project.
-- **`README.md`**: A text file containing useful reference information about your plugin.
+## How to develop locally
 
-## 🎓 Learning Gatsby
+#### Prerequisites
+To develop locally you need the following tools:
+ - NodeJS (recommended version: 14.15.4)
+ - NPM
 
-If you're looking for more guidance on plugins, how they work, or what their role is in the Gatsby ecosystem, check out some of these resources:
+#### Setup
+To set the project up, simply let npm install your dependencies as always:
+```bash
+npm install
+```
 
-- The [Creating Plugins](https://www.gatsbyjs.com/docs/creating-plugins/) section of the docs has information on authoring and maintaining plugins yourself.
-- The conceptual guide on [Plugins, Themes, and Starters](https://www.gatsbyjs.com/docs/plugins-themes-and-starters/) compares and contrasts plugins with other pieces of the Gatsby ecosystem. It can also help you [decide what to choose between a plugin, starter, or theme](https://www.gatsbyjs.com/docs/plugins-themes-and-starters/#deciding-which-to-use).
-- The [Gatsby plugin library](https://www.gatsbyjs.com/plugins/) has over 1750 official as well as community developed plugins that can get you up and running faster and borrow ideas from.
+#### Building the project
+To build the project use the build script provided by npm:
+```bash
+npm run build
+```
+Note that building will also run eslint and jest tests.
+
+If you want to collect coverage while building, use the following script instead:
+```bash
+npm run buildCoverage
+```
+
+#### Compiling the project
+To compile the project run the following npm script:
+```bash
+npm run compile
+```
+
+#### Clean compile output
+To clean the compiled output (which lays in the root directory), run:
+```bash
+npm run clean
+```
+
+## How to run tests
+The project uses eslint as linter and jest as the testing framework.
+You can run the tools using npm.
+
+#### Run linting and testing suites
+Use the following npm command to run eslint and jest:
+```bash
+npm run test
+```
+
+#### Run only eslint
+Use the following npm command to run eslint:
+```bash
+npm run lint
+```
+
+#### Run only jest
+Use the following npm command to run jest:
+```bash
+npm run test
+```
+
+## How to contribute
+You are welcome to contribute to `gatsby-plugin-klaro`! Refer to Contributing for information about issues and code contributions.
