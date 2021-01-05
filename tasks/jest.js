@@ -11,8 +11,8 @@ function jestCoverage() {
     return jestFramework.runCLI(
         {
             "collectCoverage": true,
-            "coverageReporters": ["text"],
-            "coverageDirectory": "<rootdir>/coverage/",
+            "coverageReporters": ["text", "html"],
+            "coverageDirectory": "coverage/",
             "coveragePathIgnorePatterns": [
                 "<rootdir>/node_modules/"
             ]
