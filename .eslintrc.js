@@ -1,5 +1,3 @@
-const TSEslint = require("@typescript-eslint/eslint-plugin");
-
 module.exports = {
     parser: "babel-eslint",
     extends: [
@@ -64,14 +62,6 @@ module.exports = {
         "require-jsdoc": "off",
         "valid-jsdoc": "off",
     },
-    overrides: [{
-        files: ["*.ts", "*.tsx"],
-        parser: "@typescript-eslint/parser",
-        plugins: ["@typescript-eslint/eslint-plugin"],
-        rules: {
-            ...TSEslint.configs.recommended.rules,
-        },
-    }, ],
     settings: {
         react: {
             version: "16.4.2",

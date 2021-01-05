@@ -8,7 +8,6 @@ const { clean } = require("./tasks/clean");
 const { lint } = require("./tasks/lint");
 const { jest, jestCoverage } = require("./tasks/jest");
 const { babel } = require("./tasks/babel");
-const { typings } = require("./tasks/typings");
 
 global.projectRoot = __dirname;
 
@@ -17,7 +16,7 @@ module.exports.clean = clean;
 module.exports.lint = lint;
 
 // Basic compile workflow
-const compile = parallel(babel, typings);
+const compile = parallel(babel);
 module.exports.compile = compile;
 // Lint and test
 module.exports.test = parallel(lint, jest);
