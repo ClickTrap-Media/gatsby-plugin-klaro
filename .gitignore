@@ -67,7 +67,6 @@ yarn-error.log
 
 # Ignore files
 /*.js
-/*.d.ts
 !/commitlint.config.js
 !/gulpfile.js
 !/.eslintrc.js
