@@ -10,3 +10,4 @@ gulpfile.js
 src
 typings
 jest.config.js
+coverage/
