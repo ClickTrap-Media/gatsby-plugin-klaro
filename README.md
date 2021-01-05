@@ -5,6 +5,8 @@ This plugin allows to add [KIProtect Klaro](https://github.com/kiprotect/klaro) 
 The plugin adds the necessary configuration and script in the head of your page.
 
 ## How to install
+
+### Install the plugin through npm
 The installation of `gatsby-plugin-klaro` is done the same way as you would install other plugins.
 Refer to [Using a plugin in your site](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/) for a detailed guide.
 Note that you need `npm` to use this plugin. You might also use another prefered package manager that you currently use.
@@ -14,8 +16,60 @@ Run the following commandto install `gatsby-plugin-klaro`:
 npm install gatsby-plugin-klaro
 ```
 
+### Load the plugin
+Put the plugin into your `gatsby-config.js`. It is **important** that you insert the plugin at the top of
+your loaded plugins. The order of the plugins in your `gatsby-config.js` specifies their load order.
+As Klaro is a CMP it is recommended to put it at the top of your `<head></head>`.
+
+```javascript
+module.exports = {
+    plugins: [
+        ...
+        {
+            `gatsby-plugin-klaro`,
+            options: {
+                ...
+            }
+        },
+        ...
+    ]
+};
+```
+
 ## Available options
-Will be populated as the development continues...
+
+### `klaroVersion` (optional, default: `v0.7.11`)
+The version of Klaro that should be used. Use the same version strings as you find
+on [Releases](https://github.com/kiprotect/klaro/releases) on the Klaro repository.
+Example value: "v0.7.11"
+
+### `klaroUrl` (optional, default: offical klaro url with `klaroVersion` as version)
+The Klaro url that should be used to load the Klaro script.
+You can use %version% as a placeholder for `klaroVersion`.
+The following example shows how to use a local Klaro version that lays in your static content folder.
+Example value: "klaro.js"
+
+### `config` (required if `configUrl` is not set)
+The configuration that you want to apply to Klaro.
+This value is a JSON object that contains the necessary configuration of Klaro.
+You can either use the `config` **or** `configUrl` option to configure Klaro.
+Note that `config` has a higher priority than `configUrl` and will override `configUrl`
+if both options are set. Also no configuration merging will be applied.
+Example value: {...}
+
+### `configUrl` (required if `config` is not set)
+The URL to a JavaScript file that should be loaded as configuration source.
+Please use the default variable when in your JavaScript configuration file
+which is `window.klaroConfig` for this to work properly.
+You can either use the `config` **or** `configUrl` option to configure Klaro.
+Note that `config` has a higher priority than `configUrl` and will override `configUrl`
+if both options are set. Also no configuration merging will be applied.
+Example value: "config.js"
+
+
+### `includeInDevelopment` (optional, default: false)
+Specify if Klaro should be included in development builds.
+Example value: true
 
 ## Examples of usage
 Will be populated as the development continues...
