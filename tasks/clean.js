@@ -1,16 +1,13 @@
-const gulp = require("gulp");
 const del = require("del");
+const fs = require("fs");
 
 // Delete js and typing files from project root
 // (and explcitly preserve our configuration files)
 function clean() {
-    return del([
-        "*.js",
-        "*.d.ts",
-        "!commitlint.config.js",
-        "!gulpfile.js",
-        "!jest.config.js"
-    ]);
+    const files = fs.readdirSync("src").concat(fs.readdirSync("typings"));
+    console.log("Cleaning files, if present: " + files);
+
+    return del(files);
 };
 
 module.exports.clean = clean;
