@@ -38,18 +38,18 @@ module.exports = {
 
 ## Available options
 
-### `klaroVersion` (optional, default: `v0.7.11`)
+#### `klaroVersion` (optional, default: `v0.7.11`)
 The version of Klaro that should be used. Use the same version strings as you find
 on [Releases](https://github.com/kiprotect/klaro/releases) on the Klaro repository.
 Example value: "v0.7.11"
 
-### `klaroUrl` (optional, default: offical klaro url with `klaroVersion` as version)
+#### `klaroUrl` (optional, default: offical klaro url with `klaroVersion` as version)
 The Klaro url that should be used to load the Klaro script.
 You can use %version% as a placeholder for `klaroVersion`.
 The following example shows how to use a local Klaro version that lays in your static content folder.
 Example value: "klaro.js"
 
-### `config` (required if `configUrl` is not set)
+#### `config` (required if `configUrl` is not set)
 The configuration that you want to apply to Klaro.
 This value is a JSON object that contains the necessary configuration of Klaro.
 You can either use the `config` **or** `configUrl` option to configure Klaro.
@@ -57,7 +57,7 @@ Note that `config` has a higher priority than `configUrl` and will override `con
 if both options are set. Also no configuration merging will be applied.
 Example value: {...}
 
-### `configUrl` (required if `config` is not set)
+#### `configUrl` (required if `config` is not set)
 The URL to a JavaScript file that should be loaded as configuration source.
 Please use the default variable when in your JavaScript configuration file
 which is `window.klaroConfig` for this to work properly.
@@ -67,13 +67,13 @@ if both options are set. Also no configuration merging will be applied.
 Example value: "config.js"
 
 
-### `includeInDevelopment` (optional, default: false)
+#### `includeInDevelopment` (optional, default: false)
 Specify if Klaro should be included in development builds.
 Example value: true
 
 ## Examples of usage
 
-### Default URL & embedded configuration example
+#### Default URL & embedded configuration example
 Usage with the default URL for Klaro and an embedded configuration:
 ```javascript
 module.exports = {
@@ -90,7 +90,7 @@ module.exports = {
                         name: "google-analytics",
                         default: true,
                         title: "Google Analytics",
-                        purposes: ["Statistiken"],
+                        purposes: ["statistics"],
                         cookies: [/^ga/i],
                     },],
                 }
@@ -101,7 +101,7 @@ module.exports = {
 };
 ```
 
-### Custom URL and external configuration example
+#### Custom URL and external configuration example
 Usage with a custom URL for Klaro and an external configuration located at static/config.js:
 ```javascript
 module.exports = {
@@ -122,18 +122,18 @@ module.exports = {
 
 ## How to develop locally
 
-### Prerequisites
+#### Prerequisites
 To develop locally you need the following tools:
  - NodeJS (recommended version: 14.15.4)
  - NPM
 
-### Setup
+#### Setup
 To set the project up, simply let npm install your dependencies as always:
 ```bash
 npm install
 ```
 
-### Building the project
+#### Building the project
 To build the project use the build script provided by npm:
 ```bash
 npm run build
@@ -145,13 +145,13 @@ If you want to collect coverage while building, use the following script instead
 npm run buildCoverage
 ```
 
-### Compiling the project
+#### Compiling the project
 To compile the project run the following npm script:
 ```bash
 npm run compile
 ```
 
-### Clean compile output
+#### Clean compile output
 To clean the compiled output (which lays in the root directory), run:
 ```bash
 npm run clean
@@ -161,19 +161,19 @@ npm run clean
 The project uses eslint as linter and jest as the testing framework.
 You can run the tools using npm.
 
-### Run linting and testing suites
+#### Run linting and testing suites
 Use the following npm command to run eslint and jest:
 ```bash
 npm run test
 ```
 
-### Run only eslint
+#### Run only eslint
 Use the following npm command to run eslint:
 ```bash
 npm run lint
 ```
 
-### Run only jest
+#### Run only jest
 Use the following npm command to run jest:
 ```bash
 npm run test
