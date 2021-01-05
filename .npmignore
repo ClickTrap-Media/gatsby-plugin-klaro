@@ -8,6 +8,5 @@ tasks
 gulpfile.js
 .babelrc
 src
-typings
 jest.config.js
 coverage/
