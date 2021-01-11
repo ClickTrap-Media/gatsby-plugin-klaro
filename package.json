@@ -1,6 +1,6 @@
 {
     "name": "gatsby-plugin-klaro",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A GatsbyJS plugin to include KIProtect Klaro in a site",
     "keywords": [
         "gatsby",
@@ -8,15 +8,15 @@
         "klaro",
         "cmp"
     ],
-    "author": "ClickTrap Media <contact@clicktrap-media.de>",
+    "author": "Lazy Bytez <p.zarrad@outlook.de>",
     "license": "MIT",
-    "homepage": "https://github.com/ClickTrap-Media/gatsby-plugin-klaro",
+    "homepage": "https://github.com/lazybytez/gatsby-plugin-klaro",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ClickTrap-Media/gatsby-plugin-klaro.git"
+        "url": "git+https://github.com/lazybytez/gatsby-plugin-klaro.git"
     },
     "bugs": {
-        "url": "https://github.com/ClickTrap-Media/gatsby-plugin-klaro/issues"
+        "url": "https://github.com/lazybytez/gatsby-plugin-klaro/issues"
     },
     "main": "index.js",
     "private": false,
