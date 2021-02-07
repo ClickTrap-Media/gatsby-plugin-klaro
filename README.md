@@ -138,12 +138,7 @@ To build the project use the build script provided by npm:
 ```bash
 npm run build
 ```
-Note that building will also run eslint and jest tests.
-
-If you want to collect coverage while building, use the following script instead:
-```bash
-npm run buildCoverage
-```
+Note that building will also run eslint.
 
 #### Compiling the project
 To compile the project run the following npm script:
@@ -157,26 +152,14 @@ To clean the compiled output (which lays in the root directory), run:
 npm run clean
 ```
 
-## How to run tests
-The project uses eslint as linter and jest as the testing framework.
-You can run the tools using npm.
+## How to run the quality assurance suite
+The project uses eslint as linter.
+You can run the tool using npm.
 
-#### Run linting and testing suites
-Use the following npm command to run eslint and jest:
-```bash
-npm run test
-```
-
-#### Run only eslint
+#### Run eslint
 Use the following npm command to run eslint:
 ```bash
 npm run lint
-```
-
-#### Run only jest
-Use the following npm command to run jest:
-```bash
-npm run test
 ```
 
 ## How to contribute
