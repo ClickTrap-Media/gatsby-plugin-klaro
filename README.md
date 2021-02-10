@@ -55,6 +55,11 @@ This value is a JSON object that contains the necessary configuration of Klaro.
 You can either use the `config` **or** `configUrl` option to configure Klaro.
 Note that `config` has a higher priority than `configUrl` and will override `configUrl`
 if both options are set. Also no configuration merging will be applied.
+
+**IMPORTANT:** When using the inline configuration, you **must** provide a string 
+(wrap your regex in `"` or `'`) as the cookie pattern. The reason behind this is that 
+the Gatsby build process loses your regex object before this plugin can deal with it. 
+
 Example value: {...}
 
 #### `configUrl` (required if `config` is not set)
@@ -91,7 +96,7 @@ module.exports = {
                         default: true,
                         title: "Google Analytics",
                         purposes: ["statistics"],
-                        cookies: [/^ga/i],
+                        cookies: ["/^ga/i"],
                     },],
                 }
             }
