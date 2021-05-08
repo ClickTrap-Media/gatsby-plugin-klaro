@@ -1,5 +1,11 @@
 # gatsby-plugin-klaro
 
+--------
+### IMPORTANT
+This project has been abandoned. Please consider using [gatsby-plugin-tagmanager](https://github.com/lazybytez/gatsby-plugin-tagmanager) instead to include Klaro into your project.
+
+--------
+
 ## Description
 This plugin allows to add [KIProtect Klaro](https://github.com/kiprotect/klaro) to your Gatsby site.
 The plugin adds the necessary configuration and script in the head of your page.
